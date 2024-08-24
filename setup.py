@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-requirements = ["clearml", "nfl-data-py", "pandas"]
+requirements = ["clearml", "nfl-data-py", "pandas", "numpy<2.0.0"]
 
 dev_requirements = ["pre-commit", "black", "flake8", "isort"]
 
