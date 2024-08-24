@@ -1,6 +1,7 @@
+import os
 import unittest
 from unittest.mock import patch
-import os
+
 import pandas as pd
 
 from src.data_utils import clean_nfl_data, load_pbp_data, save_to_csv
