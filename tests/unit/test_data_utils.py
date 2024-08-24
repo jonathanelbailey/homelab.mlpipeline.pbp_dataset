@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
-from unittest.mock import patch, mock_open
-from src.data_utils import load_pbp_data, clean_nfl_data
+from unittest.mock import patch
+from src.data_utils import load_pbp_data, clean_nfl_data, save_to_csv
 
 class TestDataUtils(unittest.TestCase):
 
@@ -12,24 +12,28 @@ class TestDataUtils(unittest.TestCase):
         })
         self.seasons = [2019, 2020]
 
-    @patch('src.preprocessing.data_utils.nfl.import_pbp_data')
+    @patch('src.data_utils.nfl.import_pbp_data')
     def test_load_pbp_data(self, mock_import_pbp_data):
         mock_import_pbp_data.return_value = self.test_data
         result = load_pbp_data(self.seasons)
         mock_import_pbp_data.assert_called_with(self.seasons, thread_requests=True)
         pd.testing.assert_frame_equal(result, self.test_data)
 
-    @patch('src.preprocessing.data_utils.nfl.clean_nfl_data')
+    @patch('src.data_utils.nfl.clean_nfl_data')
     def test_clean_nfl_data(self, mock_clean_nfl_data):
         mock_clean_nfl_data.return_value = self.test_data
         result = clean_nfl_data(self.test_data)
         mock_clean_nfl_data.assert_called_with(self.test_data)
         pd.testing.assert_frame_equal(result, self.test_data)
 
-    @patch("builtins.open", new_callable=mock_open)
-    def test_save_data(self, mock_file_open):
-        save_data(self.test_data, 'dummy_path.csv')
-        mock_file_open.assert_called_with('dummy_path.csv', 'w', encoding='utf-8', errors='strict', newline='')
+    @patch("pandas.DataFrame.to_csv")
+    def test_save_to_csv(self, mock_to_csv):
+        file_prefix = 'dummy_prefix'
+        season = self.seasons[0]
+        df_tuple = (self.seasons[0], file_prefix, self.test_data)
+        expected_filename = f'{file_prefix}_{season}.csv'
+        save_to_csv(df_tuple)
+        mock_to_csv.assert_called_with(expected_filename)
 
 
 if __name__ == '__main__':

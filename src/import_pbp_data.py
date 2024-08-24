@@ -13,11 +13,11 @@ def main(args):
     pbp_data = clean_nfl_data(pbp_df)
     print(f"Saving Play-by-Play Data to CSV")
     process_dataframe(pbp_data, file_prefix)
-    update_dataset(
-        dataset_name=args.dataset,
-        dataset_project=args.project,
-        file_prefix=file_prefix
-    )
+    # update_dataset(
+    #     dataset_name=args.dataset,
+    #     dataset_project=args.project,
+    #     file_prefix=file_prefix
+    # )
 
 
 def get_current_season_year():
@@ -48,9 +48,9 @@ if __name__ == '__main__':
                         help='Starting Season.  Default: 1999')
     parser.add_argument('-e', '--end-year', type=int, metavar=year_metavar, required=False, default=get_current_season_year(),
                         help=f'Ending Season.  Default: {get_current_season_year()}')
-    parser.add_argument('-d', '--dataset', type=str, metavar='DATASET_NAME', required=False, default="NFL Play-by-Play Data",
-                        help='Dataset Name.  Default: NFL Play-by-Play Data')
-    parser.add_argument('-p', '--project', type=str, metavar='PROJECT_NAME', required=False, default="NFL Models", help='Project Name.  Default: NFL Models')
+    # parser.add_argument('-d', '--dataset', type=str, metavar='DATASET_NAME', required=False, default="NFL Play-by-Play Data",
+    #                     help='Dataset Name.  Default: NFL Play-by-Play Data')
+    # parser.add_argument('-p', '--project', type=str, metavar='PROJECT_NAME', required=False, default="NFL Models", help='Project Name.  Default: NFL Models')
 
     args = parser.parse_args()
     main(args)

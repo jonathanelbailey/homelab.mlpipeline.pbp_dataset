@@ -1,3 +1,4 @@
+setuptools
 clearml
 nfl-data-py
 pandas
