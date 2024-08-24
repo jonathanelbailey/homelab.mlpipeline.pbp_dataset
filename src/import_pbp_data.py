@@ -1,9 +1,9 @@
+import argparse
 import datetime
 import os
+from textwrap import dedent
 
 from src.data_utils import clean_nfl_data, load_pbp_data, process_dataframe, update_dataset
-import argparse
-from textwrap import dedent
 
 
 def main():
@@ -26,8 +26,7 @@ def main():
 
     # Add arguments for all hyperparameters
     parser.add_argument(
-        "-s", "--start-year", type=int, metavar=year_metavar, required=False, default=1999,
-        help="Starting Season.  Default: 1999"
+        "-s", "--start-year", type=int, metavar=year_metavar, required=False, default=1999, help="Starting Season.  Default: 1999"
     )
     parser.add_argument(
         "-e",
@@ -48,8 +47,7 @@ def main():
         help="Dataset Name.  Default: NFL Play-by-Play Data",
     )
     parser.add_argument(
-        "-p", "--project", type=str, metavar="PROJECT_NAME", required=False, default="NFL Models",
-        help="Project Name.  Default: NFL Models"
+        "-p", "--project", type=str, metavar="PROJECT_NAME", required=False, default="NFL Models", help="Project Name.  Default: NFL Models"
     )
 
     args = parser.parse_args()
