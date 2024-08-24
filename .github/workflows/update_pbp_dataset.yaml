@@ -23,7 +23,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install Dependencies
-        run: python -m pip install .
+        run: pip install .
 
       - name: Run Import PBP Data
-        run: python src/import_pbp_data.py
+        run: pbp-data-import --project 'NFL Models' --dataset 'NFL Play-By-Play Data'
