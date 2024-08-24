@@ -26,5 +26,4 @@ jobs:
         run: python -m pip install .
 
       - name: Run Import PBP Data
-        run: python import_pbp_data.py
-        working-directory: ./src
+        run: python src/import_pbp_data.py
