@@ -1,0 +1,4 @@
+clearml
+nfl-data-py
+pandas
+pip
