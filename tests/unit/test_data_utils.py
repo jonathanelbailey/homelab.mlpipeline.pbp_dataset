@@ -1,3 +1,4 @@
+import os
 import unittest
 from unittest.mock import patch
 
@@ -31,7 +32,7 @@ class TestDataUtils(unittest.TestCase):
         file_prefix = "dummy_prefix"
         season = self.seasons[0]
         df_tuple = (self.seasons[0], file_prefix, self.test_data)
-        expected_filename = f"{file_prefix}_{season}.csv"
+        expected_filename = os.path.join(file_prefix, f"{file_prefix}_{season}.csv")
         save_to_csv(df_tuple)
         mock_to_csv.assert_called_with(expected_filename)
 

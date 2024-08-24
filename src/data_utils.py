@@ -19,8 +19,9 @@ def clean_nfl_data(df):
 def save_to_csv(df_tuple):
     season, file_prefix, df = df_tuple
     filename = f"{file_prefix}_{season}.csv"
-    df.to_csv(filename)
-    print(f"Saved {filename}")
+    file_folder_path = os.path.join(file_prefix, filename)
+    df.to_csv(file_folder_path)
+    print(f"Saved {file_folder_path}")
 
 
 def process_dataframe(df, file_prefix):
