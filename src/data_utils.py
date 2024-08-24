@@ -1,7 +1,8 @@
+import os
+from multiprocessing import Pool
+
 import nfl_data_py as nfl
 import pandas as pd
-from multiprocessing import Pool
-import os
 from clearml import Dataset
 
 
@@ -17,20 +18,20 @@ def clean_nfl_data(df):
 
 def save_to_csv(df_tuple):
     season, file_prefix, df = df_tuple
-    filename = f'{file_prefix}_{season}.csv'
+    filename = f"{file_prefix}_{season}.csv"
     df.to_csv(filename)
-    print(f'Saved {filename}')
+    print(f"Saved {filename}")
 
 
 def process_dataframe(df, file_prefix):
-    grouped = df.groupby('season')
+    grouped = df.groupby("season")
     df_tuples = [(season, file_prefix, group) for season, group in grouped]
     with Pool() as pool:
         pool.map(save_to_csv, df_tuples)
 
 
 def read_from_csv(file_path):
-    print(f'Reading {file_path}')
+    print(f"Reading {file_path}")
     return pd.read_csv(file_path, low_memory=False, index_col=0)
 
 
@@ -41,9 +42,7 @@ def read_csvs_in_parallel(file_list):
 
 
 def get_dataset(name):
-    dataset = Dataset.get(
-        dataset_name=name
-    )
+    dataset = Dataset.get(dataset_name=name)
     dataset_files = dataset.list_files()
     dataset_files_path = dataset.get_local_copy()
     dataset_files_list = [os.path.join(dataset_files_path, csv) for csv in dataset_files]
@@ -53,11 +52,7 @@ def get_dataset(name):
 
 
 def update_dataset(dataset_name, dataset_project, file_prefix):
-    dataset = Dataset.get(
-        dataset_name=dataset_name,
-        dataset_project=dataset_project,
-        writable_copy=True,
-        auto_create=True)
+    dataset = Dataset.get(dataset_name=dataset_name, dataset_project=dataset_project, writable_copy=True, auto_create=True)
     wildcard = f"{file_prefix}_*.csv"
     dataset.add_files(path=file_prefix, wildcard=wildcard)
     dataset.upload()
