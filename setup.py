@@ -10,7 +10,7 @@ setup(
     author="Jonathan Bailey",
     author_email="jonathan@jelbailey.com",
     description="Import Play-by-Play Data from nfl_data_py",
-    entrypointts={"console_scripts": ["pbp-data-import = src.import_pbp_data:main"]},
+    entry_points={"console_scripts": ["pbp-data-import = src.import_pbp_data:main"]},
     packages=find_packages(exclude=["tests"]),
     install_requires=requirements,
     extras_require={"dev": dev_requirements},
